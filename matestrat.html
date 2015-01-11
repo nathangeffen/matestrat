@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta content="evolution natural selection mating violence homicide" name="keywords">
+<meta content="Fatal fights for mating" name="description">
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link type="text/css" href="matestrat.css" rel="stylesheet">
+<title>Evolution of non-fatal mating rituals</title>
+
+<!--Javascript sources-->
+<script type="text/javascript" src="jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="jquery.async.js"></script>
+<script type="text/javascript" src="matestrat.js"></script>
+</head>
+
+<body>
+
+<form>
+
+<p>Initial population
+  <input type="text" id="population" name="population" value="50" />
+</p>
+
+<p>Iterations
+  <input type="text" id="iterations" name="iterations" value="10" />
+</p>
+
+<p>Mate fighting genes
+  <input type="text" id="mating_genes" name="mating_genes" value="10" />
+</p>
+
+<p>Proportion of homicidal genes
+  <input type="text" id="homicidal_genes" name="homicidal_genes" value="0.5" />
+</p>
+
+<p>Probability homicidal victor mortally wounded
+  <input type="text" id="revenge_factor" name="revenge_factor" value="0.5" />
+</p>
+
+<p>Number of mating seasons per adult life
+  <input type="text" id="death_age" name="death_age" value="3" />
+</p>
+
+<p>Number of children
+  <input type="text" id="num_kids" name="num_kids" value="2" />
+</p>
+
+<p>Child mortality rate
+  <input type="text" id="child_mortality_rate" name="child_mortality_rate" value="0.1" />
+</p>
+
+<p>Mating strategy
+ <select id="mating_strategy" name="mating_strategy">
+  <option value="monogamous">Monogamous</option>
+  <option value="polygamous">Polygamous</option>
+</select>
+
+<p>
+  <button id="simbutton" type="button" title="Run simulation">Simulate
+  </button>
+</p>
+
+</form>
+
+<div id="output">
+
+</div>
+
+</body>
+
+</html>
