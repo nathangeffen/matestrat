@@ -72,7 +72,8 @@ var agent = function(simulation, father, mother)
 	lethalness += this.mating_genes[i];
     }
     this.lethalness = lethalness / this.mating_genes.length;
-    this.age = 0;
+    this.expected_seasons_rand = Math.random();
+    this.seasons = 0;
     this.birth_iteration = simulation.iteration;
     this.death_iteration = -1;
     this.fights = 0;
@@ -96,11 +97,14 @@ var init_agents = function(simulation)
     for (var i = 0; i < simulation.initial_population; ++i) {
 	simulation.agents.push(new agent(simulation, null, null));
     }
+    simulation.males = [];
+    simulation.females = [];
 }
 
 var check_die_old_age = function(simulation, i)
 {
-    if (simulation.agents[i].age > simulation.death_age) {
+    var a = simulation.agents[i];
+    if (a.expected_seasons_rand < simulation.expected_seasons[a.seasons]) {
 	kill_agent(simulation, simulation.agents[i], "oldage");
     }
 }
@@ -142,9 +146,6 @@ var mate = function(simulation, i, j)
 	var a = new agent(simulation,
 			  simulation.males[i], simulation.females[j]);
 	simulation.agents.push(a);
-	if (Math.random() < simulation.child_mortality_rate) {
-	    kill_agent(simulation, a, "childmortality");
-	}
     }
     simulation.males[i].children += simulation.num_children;
     simulation.females[j].children += simulation.num_children;
@@ -198,12 +199,14 @@ var remove_dead = function(simulation)
 var iterate = function(simulation)
 {
     jQuery.whileAsync({
-        delay: 1,
+        delay: simulation.delay,
         bulk: 0,
         test: function()
 	{
 	    return simulation.iteration < simulation.iterations &&
-		simulation.agents.length > 0 && simulation.agents.length < 20000;
+		simulation.agents.length > 0 &&
+		simulation.agents.length < 20000 &&
+		!$("#simbutton").hasClass("StopSim");
 	},
         loop: function()
         {
@@ -213,8 +216,8 @@ var iterate = function(simulation)
 	    simulation.males = [];
 	    simulation.females = [];
 	    for (var i = 0; i < simulation.agents.length; ++i) {
-		++simulation.agents[i].age;
 		check_die_old_age(simulation, i);
+		++simulation.agents[i].seasons;
 		if (simulation.agents[i].alive) {
 		    if (simulation.agents[i].sex == MALE) {
 			simulation.males.push(simulation.agents[i]);
@@ -234,6 +237,8 @@ var iterate = function(simulation)
 	    report(simulation);
 	    results += "</table>";
 	    $("#output").html(results + "<hr />");
+	    $("#simbutton").removeClass("InSim StopSim");
+	    $("#simbutton").text("Simulate");
         }
     });
 }
@@ -242,10 +247,9 @@ var iterate = function(simulation)
 var report = function(simulation)
 {
     var alive = simulation.agents.length;
-    var males = 0;
     var prop_killer_genes;
-    var peaceful_males = 0;
-    var homicidal_males = 0;
+    var peaceful = 0;
+    var homicidal = 0;
     var killer_genes = 0;
     for (var i = 0; i < alive; ++i) {
 	var a = simulation.agents[i];
@@ -254,15 +258,11 @@ var report = function(simulation)
 	    killer_genes += a.mating_genes[j];
 	    k += a.mating_genes[j];
 	}
-	if (a.sex == MALE) {
-	    ++males;
-	    if (k < simulation.prop_killer * simulation.num_mating_genes) {
-		++peaceful_males;
-	    } else {
-		++homicidal_males;
-	    }
+	if (k < simulation.prop_killer * simulation.num_mating_genes) {
+	    ++peaceful;
+	} else {
+	    ++homicidal;
 	}
-
     }
 
     prop_killer_genes = killer_genes / (simulation.num_mating_genes * alive);
@@ -272,15 +272,23 @@ var report = function(simulation)
     results += "<td>" + (simulation.agents.length + simulation.dead.length)
 	+ "</td>";
     results += "<td>" + alive + "</td>";
-    results += "<td>" + males + "</td>";
-    results += "<td>" + peaceful_males + "</td>";
+    results += "<td>" + simulation.males.length + "</td>";
+    results += "<td>" + peaceful + "</td>";
     results += "<td>" + killer_genes + "</td>";
     results += "<td>" + prop_killer_genes.toFixed(2) + "</td>";
     results += "<td>" + simulation.fights + "</td>";
     results += "<td>" + simulation.homicide + "</td>";
     results += "<td>" + simulation.oldage + "</td>";
-    results += "<td>" + simulation.childmortality + "</td>";
     results +="</tr>";
+
+    simulation.agent_time_series.push(simulation.agents.length);
+    simulation.peaceful_time_series.push(peaceful);
+    simulation.chart_data.series = [simulation.agent_time_series, simulation.peaceful_time_series];
+    simulation.chart_data.labels.push(simulation.iteration);
+
+    new Chartist.Line('.ct-chart',
+		      simulation.chart_data, simulation.chart_options);
+
 }
 
 var init_results = function()
@@ -297,8 +305,26 @@ var init_results = function()
     results += "<th>Fights</th>"
     results += "<th>Homicides</th>"
     results += "<th>Old age</th>"
-    results += "<th>Child mortality</th>"
     results += "</tr>";
+}
+
+var init_weibull = function(simulation)
+{
+    var p = simulation.discrete_weibull_p;
+    var B = simulation.discrete_weibull_B;
+
+    var pdf_discrete_weibull = [];
+
+    var one_minus_p = 1 - p;
+
+    for (var i = 0; i < 100; ++i) {
+	var t1 = Math.pow(Math.pow(one_minus_p, i), B);
+	var t2 = Math.pow(Math.pow(one_minus_p, i + 1), B);
+	pdf_discrete_weibull[i] = t1 - t2;
+	if (i > 0)
+            pdf_discrete_weibull[i] += pdf_discrete_weibull[i-1];
+    }
+    simulation.expected_seasons = pdf_discrete_weibull;
 }
 
 var finish_results = function()
@@ -308,41 +334,51 @@ var finish_results = function()
 
 var simulate = function()
 {
-    var simulation = {
-	iterations : $("#iterations").val(),
-	initial_population : $("#population").val(),
-	prob_male : 0.5,
-	num_mating_genes : $("#mating_genes").val(),
-	prop_killer : $("#homicidal_genes").val(),
-	revenge_factor : $("#revenge_factor").val(),
-	death_age : $("#death_age").val(),
-	num_children : $("#num_kids").val(),
-	child_mortality_rate : $("#child_mortality_rate").val(),
-	iteration : 0,
-	fights : 0,
-	homicide : 0,
-	oldage : 0,
-	childmortality : 0,
-	id : 0,
-	dead : []
-    };
-
-    if ($("#mating_strategy").val() == "monogamous") {
-	simulation.mating = mating_monogamous;
+    if ($("#simbutton").hasClass('InSim')) {
+	$("#simbutton").addClass('StopSim');
     } else {
-	simulation.mating = mating_polygamous;
-    }
-    var out = "";
-    for (var field in simulation) {
-	out += field + ": " + simulation[field] + "\n";
-    }
+	$("#simbutton").addClass("InSim");
+	$("#simbutton").text("Stop simulation");
+	var simulation = {
+	    iterations : parseInt($("#iterations").val()),
+	    initial_population : parseInt($("#population").val()),
+	    prob_male : 0.5,
+	    num_mating_genes : parseInt($("#mating_genes").val()),
+	    prop_killer : parseFloat($("#homicidal_genes").val()),
+	    revenge_factor : parseFloat($("#revenge_factor").val()),
+	    discrete_weibull_p : parseFloat($("#discrete_weibull_p").val()),
+	    discrete_weibull_B : parseFloat($("#discrete_weibull_B").val()),
+	    num_children : parseInt($("#num_kids").val()),
+	    delay : parseInt($("#delay").val()),
+	    iteration : 0,
+	    fights : 0,
+	    homicide : 0,
+	    oldage : 0,
+	    id : 0,
+	    dead : [],
+	    agent_time_series : [],
+	    peaceful_time_series : [],
+	};
+	if ($("#mating_strategy").val() == "monogamous") {
+	    simulation.mating = mating_monogamous;
+	} else {
+	    simulation.mating = mating_polygamous;
+	}
 
-    alert(out);
-    init_results();
-    init_agents(simulation);
-    iterate(simulation);
-    /*report(simulation);
-    finish_results();*/
+
+	simulation.chart_data = {
+	    labels: [],
+	    series: []
+	};
+	simulation.chart_options = {
+	    lineSmooth : false,
+	    axisY: {  offset: 40 }
+	};
+	init_results();
+	init_weibull(simulation);
+	init_agents(simulation);
+	iterate(simulation);
+    }
 }
 
 $(document).ready(function() {
