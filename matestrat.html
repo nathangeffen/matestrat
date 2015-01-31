@@ -57,18 +57,18 @@ The inspiration for it came first from a National Geographic video that showed t
 <p>
 <ol>
 <li>A population of individuals, or agents, is initialised. The male-female split is about 50-50. All individuals (male and female) have a set of genes which indicate how lethal they are.</li>
-<li>The simulation then consists of multiple iterations, where each iteration could be thought of as a mating season. On every iteration, all the males and females are shuffled to introduce randomness.</li>
+<li>The simulation then consists of multiple iterations, where each iteration could be thought of as a mating season. On every iteration, all the males and females are randomly shuffled.</li>
 <li>At the beginning of each iteration, some individuals will die. The number of mating seasons that individuals live is determined by an option that you can change.</li>
-<li>In each iteration, males are paired to fight with each. The male that wins the fight will kill the losing male with probability proportional to the number of its lethal genes that are switched on.</li>
+<li>In each iteration, males are paired to fight with each other. The male that wins the fight will kill the losing male with probability proportional to the number of its lethal genes that are switched on.</li>
 <li>Also, there is a revenge factor (which you can switch off). This is the probability that a homicidal male will also be mortally wounded by its adversary. I introduced this because of the possibility that a murderous individual might be injured by a dying angry opponent. E.g. if a black mamba decides to bite his adversary, this would signal the probability that the adversary bites back before dying. Whether or not this is a realistic parameter, I have no idea. The higher it is though, the greater the probability that non-lethal behaviour evolves, or if it doesn't that the population goes extinct. Setting the revenge factor to zero is however more interesting, because even here non-lethal behaviour evolves in many scenarios.</li>
 <li>A winning --and surviving-- male mates with one other female in that iteration (or mating season), if the monogamous option is chosen. If the polygamous option is chosen, the number of mates the male has is equal to the proportion of females to males in the population, but at least one. Each female only mates once in a mating season.</li>
 <li>The females then give birth. The number of babies per female can also be changed by a user-specified option.
 </li>
-<li>Newly born individuals genes are a random combination of the male and female parents. The more peaceful the parents, the more peaceful the child is likely to be.</li>
+<li>A newly born individual's genes are a random combination of the male and female parents. The more peaceful the parents, the more peaceful the child is likely to be.</li>
 </ol>
 </p>
 
-<p>There are two sets of output from the simulation: a graph and a table. The graph shows the change in population (red) after each iteration, or mating season, and the change in the number of <em>peaceful</em> individuals. A peaceful individual is defined as one who has fewer lethal genes than the proportion specified by the <em>Proportion homicidal</em> option (under the <em>Advanced parameters</em>).
+<p>There are two sets of output from the simulation: a graph and a table. The graph shows the change in population (red) after each iteration, or mating season, and the change in the number of <em>peaceful</em> individuals (yellow). A peaceful individual is defined as one who has fewer lethal genes than the proportion specified by the <em>Proportion homicidal</em> parameter (under <em>Advanced parameters</em>).
 </p>
 
 <p>The second set of outputs is a table, which produces interesting demographics for every iteration.</p>
@@ -85,7 +85,7 @@ The inspiration for it came first from a National Geographic video that showed t
 <dt>Mating seasons</dt>
 <dd>Number of iterations to run the simulation. Each iteration corresponds to a mating season in which males compete with each other, and the winners mate with females, producing offspring.</dd>
 <dt>Update delay</dt>
-<dd>Minimum time delay of user interface updates between each iteration. Default is 1 second (1000 milliseconds). Set to 0 if you don't want a delay between iterations.</dd>
+<dd>Minimum time delay of user interface updates between each iteration. Default is 1 second (1000 milliseconds). Set to 0 if you want a minimal delay between iterations.</dd>
 </dl>
 <h3>Advanced parameters</h3><dl>
 <dt>Maximum population</dt>
@@ -95,21 +95,20 @@ The inspiration for it came first from a National Geographic video that showed t
 <dt>Proportional homicidal</dt>
 <dd>This is the proportion of genes that are likely to be switched on, i.e. to make the agent more likely to be homicidal. For each gene of a newly born agent, a random number is generated from 0 to 1. If it is less than the value of this parameter, it is set to zero (non-homicidal), else one. To simply model the effects of the birth rate and death rate from old age, set this parameter to zero.</dd>
 <dt>Revenge factor</dt>
-<dd>The revenge factor tries to model the risk of a homicidal male who wins a fight being killed by the losing adversary. The thinking behind it is that a male who is homicidal is more likely to be mortally wounded by his adversary. The default value is 0.2 which confers a great selection advantage to being non-homicidal. However, if you think this parameter is unrealistic, set it to zero. As explained in below, even then there appears, under many parameter settings, to be a selection advantage in favour of non-homicidal behaviour, though it isn't as clear.</dd>
+<dd>The revenge factor tries to model the risk of a homicidal male who wins a fight being killed by the losing adversary. The thinking behind it is that a male who is homicidal is more likely to be mortally wounded by his adversary. The default value is 0.2 which confers a great selection advantage to being non-homicidal. However, if you think this parameter is unrealistic, set it to zero. As explained below, even then there appears, under many parameter settings, to be a selection advantage in favour of non-homicidal behaviour, though it isn't as clear.</dd>
 <dt>Fixed number of mating seasons</dt>
 <dd>If this parameter is selected (as it is by default) every agent lives through exactly the specified number of mating seasons, unless he is killed by another male.</dd>
 <dt>Discrete Weibull</dt>
 <dd>This <a href="http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Discreteweibull.pdf" target="_blank">distribution</a> is a stochastic, more sophisticated, way of modelling the number of seasons an agent lives than the <em>Fixed number of mating seasons</em> parameter. The <em>p</em> parameter is the probability the individual will die before any mating season. The <em>&Beta;</em> parameter determines the shape of the distribution. The higher the value of <em>&Beta;</em> the narrower the distribution.</dd>
 <dt>Fixed number of children</dt>
-<dd>If this parameter is selected (as it is by default), every pair of agents that mate will produce exactly the specified number of children.</dd>
+<dd>If this parameter is selected (as it is by default), a pair of agents that mates will produce exactly the specified number of children.</dd>
 <dt>Binomial distribution</dt>
-<dd>This is a stochastic, more sophisticated, way of modelling the number children that a male and female agent who mate will have, than the <em>Fixed number of children</em> parameter. Set <em>n</em> to the maximum number of children that can be produced in a single mating, and <em>p</em> to the probability that any single child will be born live. The average number of live children that will be born is <em>p * n</em>.</dd>
+<dd>This is a stochastic, more sophisticated, way of modelling the number children that a pair of agents who mate will have, than the <em>Fixed number of children</em> parameter. Set <em>n</em> to the maximum number of children that can be produced in a single mating, and <em>p</em> to the probability that any single child will be born live. The average number of live children that will be born is <em>p&nbsp;*&nbsp;n</em>.</dd>
 <dt>Mating strategy</dt>
 <dd>If monogamous is selected (the default) then each male that wins a fight will mate with exactly one female. If polygamous is selected then each male that wins a fight will mate with a number of females proportional to the ratio of females to males.</dd>
 <dt>Random number generation</dt>
 <dd>By default the simulation uses the Javascript random number generator.
-  If you need a replicable high-quality, but possibly slower, generator,
-  select the Mersenne Twister option, which also allows you to change the
+  If you need a replicable high-quality, generator select the Mersenne Twister option, which also allows you to change the
   generator's seed.</dd>
 </dl>
 
