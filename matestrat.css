@@ -1,3 +1,131 @@
+
+#wrap {
+    margin: auto;
+    width: auto;
+    max-width: 800px;
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+
+}
+
+#option-div {
+}
+
+#chart-div {
+    max-width: 620px;
+}
+
+#output {
+}
+
+#footer {
+    clear: both;
+    padding: 3px;
+    margin-top: 10px;
+    background: none repeat scroll 0% 0% #DCDAE5;
+}
+
+hide, span.hide, div.hide, p.hide {
+    display: none;
+}
+
+legend.head, #chart-div h2 {
+    color: blue;
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+legend.head:hover, span#read-more {
+    cursor: pointer;
+}
+
+legend.sub-legend, span#read-more {
+    color: blue;
+    /* font-size: 12pt;*/
+}
+
+label.field  {
+    text-align: right;
+    width: 220px;
+    float: left;
+    font-weight: bold;
+    /* font-size: 12pt;*/
+}
+
+span.radio-field, label.radio-field {
+   font-weight: bold;
+   /*font-size: 12pt;*/
+}
+
+span.good-range {
+    color: red;
+}
+
+input.option, select.option {
+    width: auto;
+    float: left;
+    margin-left: 10px;
+    /* font-size: 12pt;*/
+    vertical-align: middle;
+}
+
+input.radio-option {
+    margin-left: 10px;
+    width: 100px;
+    /*font-size: 12pt;*/
+    vertical-align: middle;
+}
+
+img.help {
+   width: 25px;
+   height: 25px;
+   vertical-align: middle;
+}
+
+button.help {
+    margin-left: 5px;
+    padding-left: 5px;
+    background:url(help_icon.png);
+    background-repeat: no-repeat;
+    width:40px;
+    height: 15px;
+    border: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+label.error {
+    margin-left: 10px;
+    width: auto;
+    display: inline;
+    color: red;
+}
+
+fieldset p {
+    clear: both;
+    padding: 0px;
+}
+
+button.submit-button {
+    font-weight: bold;
+    /*font-size: 14pt;*/
+}
+
+p.help-text {
+    /*font-size: 12pt;*/
+}
+
+img.help:hover {
+    cursor:help;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
 .ct-chart .ct-series.ct-series-b .ct-bar, .ct-chart .ct-series.ct-series-b .ct-line, .ct-chart .ct-series.ct-series-b .ct-point, .ct-chart .ct-series.ct-series-b .ct-slice.ct-donut {
     stroke: yellow;
     stroke-opacity:0.7;
