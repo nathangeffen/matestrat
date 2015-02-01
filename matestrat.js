@@ -299,6 +299,8 @@ var iterate = function(simulation)
 var report = function(simulation)
 {
     var alive = simulation.agents.length;
+    var males = 0;
+    var females = 0;
     var prop_killer_genes;
     var peaceful = 0;
     var homicidal = 0;
@@ -315,13 +317,18 @@ var report = function(simulation)
 	} else {
 	    ++homicidal;
 	}
+	if (a.sex == MALE) {
+	    ++males;
+	} else {
+	    ++females;
+	}
     }
 
     prop_killer_genes = killer_genes / (simulation.num_mating_genes * alive);
 
     results += "<tr>";
     results += "<td>" + simulation.iteration + "</td>";
-    results += "<td>" + alive + " (" + simulation.females.length
+    results += "<td>" + alive + " (" + females
 	+ ")" +	"</td>";
     results += "<td>" + peaceful + "</td>";
     results += "<td>" + (prop_killer_genes * 100).toFixed(0) + "</td>";
