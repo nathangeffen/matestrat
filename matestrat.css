@@ -126,6 +126,10 @@ table, th, td {
     border: 1px solid black;
 }
 
+td {
+    text-align: center;
+}
+
 .ct-chart .ct-series.ct-series-b .ct-bar, .ct-chart .ct-series.ct-series-b .ct-line, .ct-chart .ct-series.ct-series-b .ct-point, .ct-chart .ct-series.ct-series-b .ct-slice.ct-donut {
     stroke: yellow;
     stroke-opacity:0.7;

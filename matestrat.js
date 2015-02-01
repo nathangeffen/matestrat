@@ -324,7 +324,7 @@ var report = function(simulation)
     results += "<td>" + alive + " (" + simulation.females.length
 	+ ")" +	"</td>";
     results += "<td>" + peaceful + "</td>";
-    results += "<td>" + prop_killer_genes.toFixed(2) + "</td>";
+    results += "<td>" + (prop_killer_genes * 100).toFixed(0) + "</td>";
     results += "<td>" + simulation.homicide + "</td>";
     results += "<td>" + simulation.oldage + "</td>";
     results +="</tr>";
@@ -347,10 +347,10 @@ var init_results = function()
 {
     results = '<table class="results">';
     results += "<tr>";
-    results += "<th>#</th>";
+    results += "<th>Season</th>";
     results += "<th>Alive (female)</th>";
     results += "<th>Peaceful</th>";
-    results += "<th>Proportion</th>";
+    results += "<th>Percentage<br />homicidal genes</th>";
     results += "<th>Deaths<br/>homicide</th>";
     results += "<th>Deaths<br/>old age</th>";
     results += "</tr>";
