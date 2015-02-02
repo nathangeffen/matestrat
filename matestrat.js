@@ -342,6 +342,20 @@ var report = function(simulation)
 				    simulation.peaceful_time_series];
     simulation.chart_data.labels.push(simulation.iteration);
 
+    simulation.chart_options.axisX.labelInterpolationFnc = function(x) {
+	if (simulation.chart_data.labels.length > 30) {
+	    var gap = Math.ceil(simulation.chart_data.labels.length / 20);
+	    if (x % gap == 0) {
+		return x;
+	    } else {
+		return "";
+	    }
+	} else {
+	    return x;
+	}
+    }
+
+
     new Chartist.Line('.ct-chart',
 		      simulation.chart_data, simulation.chart_options);
 
@@ -548,7 +562,8 @@ var simulate = function()
 	};
 	simulation.chart_options = {
 	    lineSmooth : false,
-	    axisY: {  offset: 40 }
+	    axisY: {  offset: 40 },
+	    axisX: { labelInterpolationFnc: Chartist.noop }
 	};
 	init_results();
 	if ($('#mating_weibull').is(':checked')) {

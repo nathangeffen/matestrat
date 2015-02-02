@@ -85,7 +85,7 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 <dt>Mating seasons</dt>
 <dd>Number of iterations to run the simulation. Each iteration corresponds to a mating season in which males compete with each other, and the winners mate with females, producing offspring.</dd>
 <dt>Update delay</dt>
-<dd>Minimum time delay of user interface updates between each iteration. Default is 1 second (1000 milliseconds). Set to 0 if you want a minimal delay between iterations.</dd>
+<dd>Minimum time delay of user interface updates between each iteration. Default is 100 milliseconds. Set to 0 if you want a minimal delay between iterations.</dd>
 </dl>
 <h3>Advanced parameters</h3><dl>
 <dt>Maximum population</dt>
@@ -95,15 +95,16 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 <dt>Proportional homicidal</dt>
 <dd>This is the proportion of genes that are likely to be switched on, i.e. to make the agent more likely to be homicidal. For each gene of a newly born agent, a random number is generated from 0 to 1. If it is less than the value of this parameter, it is set to zero (non-homicidal), else one. To simply model the effects of the birth rate and death rate from old age, set this parameter to zero.</dd>
 <dt>Revenge factor</dt>
-<dd>The revenge factor tries to model the risk of a homicidal male who wins a fight being killed by the losing adversary. The thinking behind it is that a male who is homicidal is more likely to be mortally wounded by his adversary. The default value is 0.2 which confers a great selection advantage to being non-homicidal. However, if you think this parameter is unrealistic, set it to zero. As explained below, even then there appears, under many parameter settings, to be a selection advantage in favour of non-homicidal behaviour, though it isn't as clear.</dd>
-<dt>Fixed number of mating seasons</dt>
-<dd>If this parameter is selected (as it is by default) every agent lives through exactly the specified number of mating seasons, unless he is killed by another male.</dd>
+<dd>The revenge factor tries to model the risk of a homicidal male who wins a fight being killed by the losing adversary. The thinking behind it is that a male who is homicidal is more likely to be mortally wounded by his adversary. By default it is set to zero. Setting it 0.2, or even 0.1, confers a great selection advantage to being non-homicidal.</dd>
+
 <dt>Discrete Weibull</dt>
 <dd>This <a href="http://www.math.wm.edu/~leemis/chart/UDR/PDFs/Discreteweibull.pdf" target="_blank">distribution</a> is a stochastic, more sophisticated, way of modelling the number of seasons an agent lives than the <em>Fixed number of mating seasons</em> parameter. The <em>p</em> parameter is the probability the individual will die before any mating season. The <em>&Beta;</em> parameter determines the shape of the distribution. The higher the value of <em>&Beta;</em> the narrower the distribution.</dd>
-<dt>Fixed number of children</dt>
-<dd>If this parameter is selected (as it is by default), a pair of mating agents will produce exactly the specified number of children.</dd>
+<dt>Fixed number of mating seasons</dt>
+<dd>If this parameter is selected every agent lives through exactly the specified number of mating seasons, unless he is killed by another male.</dd>
 <dt>Binomial distribution</dt>
 <dd>This is a stochastic, more sophisticated, way of modelling the number children that a pair of mating agents will have, than the <em>Fixed number of children</em> parameter. Set <em>n</em> to the maximum number of children that can be produced in a single mating, and <em>p</em> to the probability that any single child will be born live. The average number of live children that will be born is <em>p&nbsp;*&nbsp;n</em>.</dd>
+<dt>Fixed number of children</dt>
+<dd>If this parameter is selected, a pair of mating agents will produce exactly the specified number of children.</dd>
 <dt>Mating strategy</dt>
 <dd>If monogamous is selected (the default) then each male that wins a fight will mate with exactly one female. If polygamous is selected then each male that wins a fight will mate with a number of females proportional to the ratio of females to males.</dd>
 <dt>Random number generation</dt>
@@ -115,15 +116,16 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 
 <h2>Some preliminary results</h2>
 
-<p>I have not methodically analysed the results. In the experiments described here, the number of mating seasons was changed from 30 to 100 and the update delay was set to zero.</p>
+<p>I have not methodically analysed the results. In the experiments described here the update delay was set to zero.</p>
 
 <ul>
+<li>With the default parameters widely different outcomes occur on different runs. Nevertheless, on balance there appears to be selective pressure against being homicidal.</li>
+
 <li>The revenge factor selects against being homicidal. Even setting it to 0.1 (i.e. 10%) with all other parameters left at their defaults drives down the proportion of homicidal genes, usually very quickly, in most runs.</li>
-<li>If the revenge factor is off (i.e. set to 0) and other parameters are left at their defaults, widely different outcomes occur. My impression, perhaps wrong, is that in most runs, the proportion of homicidal genes declines, and there is therefore some selective pressure against being homicidal. It's not clear though, and a  rigorous analysis is needed.</li>
-<li>If the revenge factor is off, the <em>Mating seasons before dying</em> parameter is set to Discrete Weibull (with p and &Beta; left at their defaults), and <em>Number of children per mating</em> is set to Binomial (with n and p left at their defaults), then the vast majority of runs will result in the proportion of homicidal genes declining significantly, or the population rapidly going extinct in the case of the homicidal genes not declining. However, in a minority of runs, the homicidal genes do increase and the population does not go extinct.
-</li>
+
 <li>Tinkering with other parameters can result in vastly different results. For example, switching the mating strategy to polygamous does not appear to cause any selective pressure against being homicidal. Though it's unclear to me how realistic the polygamous strategy is.
 </li>
+
 </ul>
 
 <p>Finally, a word of caution. This simulation tool is a highly simplified account of reality. All it can hope to achieve is to inspire some thinking about the evolution of non-lethal agonistic behaviour. Be weary about drawing firm conclusions from it.
@@ -161,7 +163,7 @@ This is the size of the initial population in the simulation.<br />
 
 <p><label class="field" for="iterations">Mating seasons</label>
 <input class="option" type="number" id="iterations" name="iterations" min="1"
-       max="10000" step="1" value="30" required />
+       max="10000" step="1" value="300" required />
 <img class="help" src="help_icon.png" onclick="$('#iterations-help').toggleClass('hide');" class="help"/>
 </p>
 <p id="iterations-help" class="help-text hide">
@@ -171,7 +173,7 @@ This is the number of iterations the simulation will run for. Each iteration cor
 
 <p><label class="field" for="delay">Update delay (ms)</label>
   <input class="option" type="number" id="delay" name="delay" min="0" step="1"
-	 max="10000" value="1000" required />
+	 max="10000" value="100" required />
   <img class="help" src="help_icon.png" onclick="$('#delay-help').toggleClass('hide');" class="help"/>
 </p>
 <p id="delay-help" class="help-text hide">
@@ -213,7 +215,7 @@ This is the number of iterations the simulation will run for. Each iteration cor
 
 <p><label class="field" for="revenge_factor">Revenge factor</label>
   <input class="option" type="number" id="revenge_factor" required
-	 name="revenge_factor" value="0.2" min="0" max="1" step="0.01" />
+	 name="revenge_factor" value="0" min="0" max="1" step="0.1" />
   <img class="help" src="help_icon.png" onclick="$('#revenge_factor-help').toggleClass('hide');" class="help"/>
   <p id="revenge_factor-help" class="help-text hide">
     When a male kills another male, there is a probability, specified by this option, that before dying the losing male will inflict mortal wounds on the winner. If this event occurs, the winning male does not get to reproduce and dies. If set to 0.1 or above this dramatically increases the chances of non-homicidal males becoming dominant in the population. If set to zero, results can be very interesting and unpredictable because in some simulations non-homicidal males still become dominant, while in others the population goes extinct because of the high homicide rate. And yet in others still, even with a large proportion of homicidal males, the population explodes.<br />
@@ -232,26 +234,21 @@ This is the number of iterations the simulation will run for. Each iteration cor
 
 <legend class="sub-legend">Mating seasons before dying of old age</legend>
 
-
-<label class="radio-field" for="mating_fixed">Fixed</label>
-<input type="radio" id="mating_fixed" name="seasons" value="fixed" checked
-       onclick="$('#weibull-parms').addClass('hide');
-		$('#fixed_season').removeClass('hide');" />
-
 <label class="radio-field" for="mating_weibull">Discrete Weibull</label>
 <input type="radio" id="mating_weibull" name="seasons" value="mating_weibull"
        onclick="$('#weibull-parms').removeClass('hide');
-		$('#fixed_season').addClass('hide');" />
+		$('#fixed_season').addClass('hide');" checked />
+
+
+<label class="radio-field" for="mating_fixed">Fixed</label>
+<input type="radio" id="mating_fixed" name="seasons" value="fixed"
+       onclick="$('#weibull-parms').addClass('hide');
+		$('#fixed_season').removeClass('hide');" />
 
 <img class="help" src="help_icon.png" onclick="$('#seasons-help').toggleClass('hide');" class="help"/>
 
 <p>
-  <span id="fixed_season">
-    <label class="radio-field" for="fixed_seasons">Seasons</label>
-    <input class="radio-option" type="number" id="fixed_seasons" required
-	   name="fixed_seasons" value="3" min="1" max="10000" step="1"  />
-  </span>
-  <span id="weibull-parms" class="hide">
+  <span id="weibull-parms">
     <label class="radio-field" for="discrete_weibull_p">p</label>
     <input class="radio-option" type="number" id="discrete_weibull_p"
 	   name="discrete_weibull_p" value="0.1" min="0" max="1" step="0.0001"
@@ -263,6 +260,13 @@ This is the number of iterations the simulation will run for. Each iteration cor
     <span class="radio-field">&nbsp;&nbsp;&nbsp;Average # seasons: </span>
     <span class="radio-field" id="avg-seasons"></span>
   </span>
+
+  <span id="fixed_season" class="hide">
+    <label class="radio-field" for="fixed_seasons">Seasons</label>
+    <input class="radio-option" type="number" id="fixed_seasons" required
+	   name="fixed_seasons" value="3" min="1" max="10000" step="1"  />
+  </span>
+
 </p>
 
 <p id="seasons-help" class="hide">These parameters determine how long individuals live (before they die of old age).<br />
@@ -282,32 +286,32 @@ The <em>p</em> parameter is the probability of the individual having zero mating
 
 <legend class="sub-legend">Number of children per mating</legend>
 
-<label class="radio-field" for="children_fixed">Fixed</label>
-<input type="radio" id="children_fixed" name="children"
-       value="fixed" checked
-       onclick="$('#binom_children-parms').addClass('hide');
-		$('#fixed_children-parms').removeClass('hide');" />
-
 <label class="radio-field" for="children_binom">Binomial distribution</label>
 <input type="radio" id="children_binom" name="children" value="children_binom"
        onclick="$('#binom_children-parms').removeClass('hide');
-		$('#fixed_children-parms').addClass('hide');" />
+		$('#fixed_children-parms').addClass('hide');" checked />
+
+<label class="radio-field" for="children_fixed">Fixed</label>
+<input type="radio" id="children_fixed" name="children"
+       value="fixed"
+       onclick="$('#binom_children-parms').addClass('hide');
+		$('#fixed_children-parms').removeClass('hide');" />
 
 <img class="help" src="help_icon.png" onclick="$('#children-help').toggleClass('hide');" class="help"/>
 
 <p>
-  <span id="fixed_children-parms">
-  <label class="radio-field" for="num_kids">Offspring per mating</label>
-  <input class="radio-option" type="number" id="num_kids" min="1" max="10000"
-	 step="1" name="num_kids" value="2" required />
-  </span>
-  <span id="binom_children-parms" class="hide">
+  <span id="binom_children-parms">
     <label class="radio-field" for="num_children_binom-n">n</label>
     <input class="radio-option" type="number" id="num_children_binom-n"
 	   min="1" max="10000" value="6" required />
     <label class="radio-field" for="num_children_binom-p">p</label>
     <input class="radio-option" type="number" id="num_children_binom-p"
 	   min="0" max="1" step="0.001" value="0.5" required />
+  </span>
+  <span id="fixed_children-parms" class="hide" >
+  <label class="radio-field" for="num_kids">Offspring per mating</label>
+  <input class="radio-option" type="number" id="num_kids" min="1" max="10000"
+	 step="1" name="num_kids" value="2" required />
   </span>
 </p>
 
@@ -416,7 +420,7 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 
 <div class="ct-chart ct-perfect-fourth"></div>
 <svg height="50" width="100%">
-  <text x="40%" y="20" fill="red">Mating season</text>
+  <text x="40%" y="20" fill="black">Mating season</text>
 </svg>
 
 </fieldset>
