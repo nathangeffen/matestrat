@@ -3,8 +3,12 @@
     margin: auto;
     width: auto;
     max-width: 800px;
-    font-size: 14pt;
+    font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#option-div {
+	margin-top: 20px;
 }
 
 #chart-div {
@@ -25,7 +29,7 @@ span.hide, div.hide, p.hide, .hide {
 
 legend.head, #chart-div h2 {
     color: blue;
-    font-size: 18pt;
+    font-size: 14pt;
     font-weight: bold;
 }
 
@@ -59,7 +63,6 @@ input.option, select.option {
 input.radio-option {
     margin-left: 10px;
     width: 100px;
-    /*font-size: 12pt;*/
     vertical-align: middle;
 }
 
@@ -95,11 +98,6 @@ fieldset p {
 
 button.submit-button {
     font-weight: bold;
-    /*font-size: 14pt;*/
-}
-
-p.help-text {
-    /*font-size: 12pt;*/
 }
 
 img.help:hover {

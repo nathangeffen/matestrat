@@ -25,9 +25,14 @@
 <script type="text/javascript" src="matestrat.js"></script>
  <script>
 	$(function() {
-		$( ".accordion" ).accordion({
+		$( "#explanation" ).accordion({
 			active: false,
-			collapsible: true
+			collapsible: true,
+			heightStyle: "content"
+		});
+		$( "#parameters").accordion({
+			collapsible: true,
+			heightStyle: "content"
 		});
 	});
 </script>
@@ -46,17 +51,18 @@
 <div id="content">
 
 <p>
-The purpose of this simulation is to try to see how <em>non-lethal</em>  <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour">agonistic</a> behaviour evolves among males competing for mates. 
+The purpose of this simulation is to try to see how <em>non-lethal</em>  <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour">agonistic</a> behaviour evolves among males competing for mates.
 </p>
 
-<div id="explanation" class="accordion">
+<div id="explanation">
 
-<h3>Details</h3>
+<h3>What do King cobras and black mambas have in common?</h3>
 
 <div>
 
-
-The inspiration for it came first from a <a href="http://video.nationalgeographic.com/video/worlds-deadliest/deadliest-king-cobra">National Geographic video</a> that showed two male King Cobras performing an elaborate wrestling match to pin each other down, yet they made no attempt to bite one another. <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour#Example:_Black_mamba_.28Dendroaspis_polylepis.29">Male black mambas have a similar ritual</a> when <a href="http://www.arkive.org/black-mamba/dendroaspis-polylepis/image-G77528.html">competing</a> for mates.</p>
+<p>
+The inspiration for this simulation came first from a <a href="http://video.nationalgeographic.com/video/worlds-deadliest/deadliest-king-cobra">National Geographic video</a> that showed two male King Cobras performing an elaborate wrestling match to pin each other down, yet they made no attempt to bite one another. <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour#Example:_Black_mamba_.28Dendroaspis_polylepis.29">Male black mambas have a similar ritual</a> when <a href="http://www.arkive.org/black-mamba/dendroaspis-polylepis/image-G77528.html">competing</a> for mates.
+</p>
 
 <p>
 The second inspiration was from watching male wildebeests competing for female mates in a South African game park. Despite witnessing several fights, none of them resulted in any harm to the protagonists.
@@ -116,7 +122,7 @@ One interesting observation is that the same set of parameters can lead to wildl
 <dt>Update delay</dt>
 <dd>Minimum time delay of user interface updates between each iteration. Default is 100 milliseconds. Set to 0 if you want a minimal delay between iterations.</dd>
 </dl>
-<h5>Advanced parameters</h5><dl>
+<h4>Advanced parameters</h4><dl>
 <dt>Maximum population</dt>
 <dd>The simulation stops if the population exceeds this value. If this is set too high, the simulation can become very slow if the population explodes.</dd>
 <dt>Number of genes</dt>
@@ -172,13 +178,11 @@ Finally, a word of caution. This simulation tool is a highly simplified account 
 
 <form class="cmxform" id="parameters-form" method="get" action="">
 
-<div id="obvious_options">
+<div id="parameters" class="accordion">
 
-<fieldset>
+<h3>Simulation parameters</h3>
 
-<legend class="head" onclick="$('#options').toggleClass('hide');">Simulation parameters</legend>
-
-<div id="options">
+<div>
 
 <p><label class="field" for="population">Population</label>
 <input class="option" type="number" id="population" name="population"
@@ -212,10 +216,11 @@ This is the number of iterations the simulation will run for. Each iteration cor
 
 <p></p>
 
-<fieldset>
-<legend class="toggle head" onclick="$('#advanced-options').toggleClass('hide');">Advanced</legend>
+</div>
 
-<div id="advanced-options" class="hide">
+<h3>Advanced parameters</h3>
+
+<div>
 
 <fieldset>
 
@@ -226,7 +231,7 @@ This is the number of iterations the simulation will run for. Each iteration cor
 	 value="1" min="1" max="100" step="1" required />
   <img class="help" src="help_icon.png" onclick="$('#mating_genes-help').toggleClass('hide');" class="help"/>
   <p id="mating_genes-help" class="help-text hide">
-    This is the number of genes determining homicidal behaviour that each individual has. When two males are paired to fight for mates, the probability that the winner will kill the loser is proportional to the number of his homicidal mating genes that are switched on to. In this simulation all genes are boolean, i.e. either on or off, and all individuals have the same number of genes. <br />For example, let's say individuals have ten genes. If a male individual X has six genes switched on, then if he wins a fight, there is a six out of ten (or 60%) chance that he will kill his adversary. <br />Let's say all individuals have one gene, then each male individual either has a zero or 100% chance of killing his adversary if he wins a fight.<br />
+    This is the number of genes determining homicidal behaviour that each individual has. When two males are paired to fight for mates, the probability that the winner will kill the loser is proportional to the number of his homicidal mating genes that are switched on. In this simulation all genes are boolean, i.e. either on or off, and all individuals have the same number of genes. <br />For example, let's say individuals have ten genes. If a male individual X has six genes switched on, then if he wins a fight, there is a six out of ten (or 60%) chance that he will kill his adversary. <br />Let's say all individuals have one gene, then each male individual either has a zero or 100% chance of killing his adversary if he wins a fight.<br />
     <span class="good-range">Recommended range: 1 to 10 (integer)</span>
   </p>
 </p>
@@ -263,6 +268,7 @@ This is the number of iterations the simulation will run for. Each iteration cor
 
 <legend class="sub-legend">Mating seasons before dying of old age</legend>
 
+<p>
 <label class="radio-field" for="mating_weibull">Discrete Weibull</label>
 <input type="radio" id="mating_weibull" name="seasons" value="mating_weibull"
        onclick="$('#weibull-parms').removeClass('hide');
@@ -275,6 +281,7 @@ This is the number of iterations the simulation will run for. Each iteration cor
 		$('#fixed_season').removeClass('hide');" />
 
 <img class="help" src="help_icon.png" onclick="$('#seasons-help').toggleClass('hide');" class="help"/>
+</p>
 
 <p>
   <span id="weibull-parms">
@@ -315,6 +322,7 @@ The <em>p</em> parameter is the probability of the individual having zero mating
 
 <legend class="sub-legend">Number of children per mating</legend>
 
+<p>
 <label class="radio-field" for="children_binom">Binomial distribution</label>
 <input type="radio" id="children_binom" name="children" value="children_binom"
        onclick="$('#binom_children-parms').removeClass('hide');
@@ -327,7 +335,7 @@ The <em>p</em> parameter is the probability of the individual having zero mating
 		$('#fixed_children-parms').removeClass('hide');" />
 
 <img class="help" src="help_icon.png" onclick="$('#children-help').toggleClass('hide');" class="help"/>
-
+</p>
 <p>
   <span id="binom_children-parms">
     <label class="radio-field" for="num_children_binom-n">n</label>
@@ -354,14 +362,17 @@ The <em>Binomial Distribution</em> option is arguably more realistic. <em>n</em>
 
 </fieldset>
 
-<p><label class="field" for="num_kids">Mating strategy</label>
- <select class="option" id="mating_strategy" name="mating_strategy">
-  <option value="monogamous">Monogamous</option>
-  <option value="polygamous">Polygamous</option>
-</select></p>
-<img class="help" src="help_icon.png" onclick="$('#mating_strategy-help').toggleClass('hide');" class="help"/>
+<p>
+	<label class="field" for="num_kids">Mating strategy</label>
+ 	<select class="option" id="mating_strategy" name="mating_strategy">
+  		<option value="monogamous">Monogamous</option>
+  		<option value="polygamous">Polygamous</option>
+	</select>
+	<img class="help" src="help_icon.png" onclick="$('#mating_strategy-help').toggleClass('hide');" class="help"/>
+</p>
 <p id="mating_strategy-help" class="help-text hide">
-If this is set to monogamous, the male winner of a fight only mates with one female in that mating seasons. If this is set to polygamous, the number of females the winning male mates with is equal to approximately the ratio of females to males.</p>
+If this is set to monogamous, the male winner of a fight only mates with one female in that mating seasons. If this is set to polygamous, the number of females the winning male mates with is equal to approximately the ratio of females to males.
+</p>
 
 </fieldset>
 
@@ -371,9 +382,9 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
     <input class="option" type="number" id="max_population" required
 	   name="max_population" min="1" max="1000000" step="1"
 	   value="20000">
-  </p>
+
   <img class="help" src="help_icon.png"
-       onclick="$('#max_population-help').toggleClass('hide');" class="help"/>
+       onclick="$('#max_population-help').toggleClass('hide');" class="help"/></p>
   <p id="max_population-help" class="help-text hide">
     The maximum size of the population at which the simulation will halt. Setting this too large slows down the simulation, and can cause your browser to become unresponsive.<br />
     <span class="good-range">Recommended range: 1000-30000 (integer)</span>
@@ -384,7 +395,7 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 <fieldset>
 
 <legend class="sub-legend">Random number generation</legend>
-
+<p>
 <label class="radio-field" for="rng-javascript">Javascript default</label>
 <input type="radio" id="rng-javascript" name="rng"
        onclick="$('#mersenne-parms').addClass('hide');" checked />
@@ -396,6 +407,8 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 <img class="help" src="help_icon.png"
      onclick="$('#seed-help').toggleClass('hide');"
      class="help"/>
+
+</p>
 
 <div id="mersenne-parms" class="hide">
   <p><label class="radio-field" for="seed">Random seed</label>
@@ -415,16 +428,9 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 
 </fieldset>
 
-</fieldset>
-
-
 </div>
 
 </div>
-
-</fieldset>
-
-
 
 <p>
   <button class="submit-button" id="simbutton" type="submit" title="Run simulation">Simulate
