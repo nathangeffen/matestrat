@@ -7,19 +7,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#content {
-
-}
-
-#option-div {
-}
-
 #chart-div {
     max-width: 620px;
 }
 
-#output {
-}
 
 #footer {
     clear: both;
@@ -28,7 +19,7 @@
     background: none repeat scroll 0% 0% #DCDAE5;
 }
 
-hide, span.hide, div.hide, p.hide {
+span.hide, div.hide, p.hide, .hide {
     display: none;
 }
 
@@ -44,20 +35,16 @@ legend.head:hover, span#read-more {
 
 legend.sub-legend, span#read-more {
     color: blue;
-    /* font-size: 12pt;*/
 }
 
 label.field  {
-    text-align: right;
-    width: 220px;
-    float: left;
+	 display: inline-block;
+    width: 200px;
     font-weight: bold;
-    /* font-size: 12pt;*/
 }
 
 span.radio-field, label.radio-field {
    font-weight: bold;
-   /*font-size: 12pt;*/
 }
 
 span.good-range {
@@ -65,10 +52,7 @@ span.good-range {
 }
 
 input.option, select.option {
-    width: auto;
-    float: left;
     margin-left: 10px;
-    /* font-size: 12pt;*/
     vertical-align: middle;
 }
 

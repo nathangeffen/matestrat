@@ -9,7 +9,9 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="chartist.min.css">
-<link type="text/css" href="matestrat.css" rel="stylesheet">
+<link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
+<link rel="stylesheet" href="matestrat.css" rel="stylesheet">
+
 <title>Why don't animals kill each other when competing for mates?</title>
 
 <!--Javascript sources-->
@@ -17,9 +19,18 @@
 <script type="text/javascript" src="jquery.async.js"></script>
 <script type="text/javascript" src="chartist.min.js"></script>
 <script type="text/javascript" src="MersenneTwister.js"></script>
+<script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="jquery.validate.min.js"></script>
 <script type="text/javascript" src="additional-methods.min.js"></script>
 <script type="text/javascript" src="matestrat.js"></script>
+ <script>
+	$(function() {
+		$( ".accordion" ).accordion({
+			active: false,
+			collapsible: true
+		});
+	});
+</script>
 </head>
 
 <body>
@@ -35,24 +46,35 @@
 <div id="content">
 
 <p>
-The purpose of this simulation is to try to see how <em>non-lethal</em>  <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour">agonistic</a> behaviour evolves among males competing for mates. <span id="read-more" onclick="$('#explanation').toggleClass('hide');  $('#read-more').toggleClass('hide')">Read more</span>
+The purpose of this simulation is to try to see how <em>non-lethal</em>  <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour">agonistic</a> behaviour evolves among males competing for mates. 
 </p>
 
-<div id="explanation" class="hide">
+<div id="explanation" class="accordion">
 
-<p>
+<h3>Details</h3>
+
+<div>
+
+
 The inspiration for it came first from a <a href="http://video.nationalgeographic.com/video/worlds-deadliest/deadliest-king-cobra">National Geographic video</a> that showed two male King Cobras performing an elaborate wrestling match to pin each other down, yet they made no attempt to bite one another. <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour#Example:_Black_mamba_.28Dendroaspis_polylepis.29">Male black mambas have a similar ritual</a> when <a href="http://www.arkive.org/black-mamba/dendroaspis-polylepis/image-G77528.html">competing</a> for mates.</p>
 
-<p>The second inspiration was from watching male wildebeests competing for female mates in a South African game park. Despite witnessing several fights, none of them resulted in any harm to the protagonists.</p>
-
-<p>Why should such non-lethal behaviour evolve? It isn't obvious that extremely homicidal agonistic behaviour when competing for mates should be an evolutionary disadvantage. On the contrary, permanently eliminating competitors might on the face of it even seem advantageous.</p>
-
-<p>Yet, by tinkering with the various parameters in this <a href="http://en.wikipedia.org/wiki/Agent-based_model">agent-based simulation</a>, you can see that there are many situations where there is selective pressure <em>against</em> lethal behaviour. There are also scenarios in which non-lethal individuals often don't become dominant within the population, and the population goes extinct. Yet there are other scenarios where the proportion of homicidal males is unaffected, or where they are reduced to a stable minority.
+<p>
+The second inspiration was from watching male wildebeests competing for female mates in a South African game park. Despite witnessing several fights, none of them resulted in any harm to the protagonists.
 </p>
 
-<h2>How the simulation works</h2>
+<p>
+Why should such non-lethal behaviour evolve? It isn't obvious that extremely homicidal agonistic behaviour when competing for mates should be an evolutionary disadvantage. On the contrary, permanently eliminating competitors might on the face of it even seem advantageous.
+</p>
 
-<p>When the <em>Simulate</em> button is clicked, the simulation executes as follows</p>
+<p>
+Yet, by tinkering with the various parameters in this <a href="http://en.wikipedia.org/wiki/Agent-based_model">agent-based simulation</a>, you can see that there are many situations where there is selective pressure <em>against</em> lethal behaviour. There are also scenarios in which non-lethal individuals often don't become dominant within the population, and the population goes extinct. Yet there are other scenarios where the proportion of homicidal males is unaffected, or where they are reduced to a stable minority.
+</p>
+
+<h4>How the simulation works</h4>
+
+<p>
+When the <em>Simulate</em> button is clicked, the simulation executes as follows
+</p>
 
 <p>
 <ol>
@@ -68,16 +90,23 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 </ol>
 </p>
 
-<p>There are two sets of output from the simulation: a graph and a table. The graph shows the change in population (red) after each iteration, or mating season, and the change in the number of <em>peaceful</em> individuals (yellow). A peaceful individual is defined as one who has fewer lethal genes than the proportion specified by the <em>Proportion homicidal</em> parameter (under <em>Advanced parameters</em>).
+<p>
+There are two sets of output from the simulation: a graph and a table. The graph shows the change in population (red) after each iteration, or mating season, and the change in the number of <em>peaceful</em> individuals (yellow). A peaceful individual is defined as one who has fewer lethal genes than the proportion specified by the <em>Proportion homicidal</em> parameter (under <em>Advanced parameters</em>).
 </p>
 
-<p>The second set of outputs is a table, which produces interesting demographics for every iteration.</p>
+<p>
+The second set of outputs is a table, which produces interesting demographics for every iteration.
+</p>
 
-<p>Play around with the advanced parameters to see the way lethal versus non-lethal agonistic behaviour is affected.</p>
+<p>
+Play around with the advanced parameters to see the way lethal versus non-lethal agonistic behaviour is affected.
+</p>
 
-<p>One interesting observation is that the same set of parameters can lead to wildly different outcomes on repeated runs of the simulation. Even in this very simple model, there is much unpredictability.</p>
+<p>
+One interesting observation is that the same set of parameters can lead to wildly different outcomes on repeated runs of the simulation. Even in this very simple model, there is much unpredictability.
+</p>
 
-<h2>Parameters</h2>
+<h4>Parameters</h4>
 
 <dl>
 <dt>Population</dt>
@@ -87,7 +116,7 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 <dt>Update delay</dt>
 <dd>Minimum time delay of user interface updates between each iteration. Default is 100 milliseconds. Set to 0 if you want a minimal delay between iterations.</dd>
 </dl>
-<h3>Advanced parameters</h3><dl>
+<h5>Advanced parameters</h5><dl>
 <dt>Maximum population</dt>
 <dd>The simulation stops if the population exceeds this value. If this is set too high, the simulation can become very slow if the population explodes.</dd>
 <dt>Number of genes</dt>
@@ -114,9 +143,11 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 </dl>
 
 
-<h2>Some preliminary results</h2>
+<h4>Some preliminary results</h4>
 
-<p>I have not methodically analysed the results. In the experiments described here the update delay was set to zero.</p>
+<p>
+I have not methodically analysed the results. In the experiments described here the update delay was set to zero.
+</p>
 
 <ul>
 <li>With the default parameters widely different outcomes occur on different runs. Nevertheless, on balance there appears to be selective pressure against being homicidal.</li>
@@ -128,14 +159,12 @@ The inspiration for it came first from a <a href="http://video.nationalgeographi
 
 </ul>
 
-<p>Finally, a word of caution. This simulation tool is a highly simplified account of reality. All it can hope to achieve is to inspire some thinking about the evolution of non-lethal agonistic behaviour. Be weary about drawing firm conclusions from it.
+<p>
+Finally, a word of caution. This simulation tool is a highly simplified account of reality. All it can hope to achieve is to inspire some thinking about the evolution of non-lethal agonistic behaviour. Be weary about drawing firm conclusions from it.
 </p>
 
 </div>
 
-<p>
-
-</p>
 
 </div>
 
