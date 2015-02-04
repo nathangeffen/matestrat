@@ -4,13 +4,17 @@
 <head>
 
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="evolution natural selection mating violence homicide" name="keywords">
 <meta content="Fatal fights for mating" name="description">
+
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="bootstrap-3.3.2-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="chartist.min.css">
 <link rel="stylesheet" href="jquery-ui/jquery-ui.min.css">
-<link rel="stylesheet" href="matestrat.css" rel="stylesheet">
+<link rel="stylesheet" href="matestrat.css">
 
 <title>Why don't animals kill each other when competing for mates?</title>
 
@@ -20,6 +24,8 @@
 <script type="text/javascript" src="chartist.min.js"></script>
 <script type="text/javascript" src="MersenneTwister.js"></script>
 <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="jquery.validate.min.js"></script>
 <script type="text/javascript" src="additional-methods.min.js"></script>
 <script type="text/javascript" src="matestrat.js"></script>
@@ -40,18 +46,18 @@
 
 <body>
 
-<div id="wrap">
+<div id="wrap" class="container">
 
-<div id="header">
+<div id="header" class="starter-template">
 
-<h1>Why don't animals kill each other more often when competing for mates?</h1>
+<h1>Why don't dangerous animals kill often when competing for mates?</h1>
 
 </div>
 
 <div id="content">
 
 <p>
-The purpose of this simulation is to try to see how <em>non-lethal</em>  <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour">agonistic</a> behaviour evolves among males competing for mates.
+This simulation tries to aid our understanding of how <em>non-lethal</em>  <a href="http://en.wikipedia.org/wiki/Agonistic_behaviour">agonistic</a> behaviour evolves among males competing for mates.
 </p>
 
 <div id="explanation">
@@ -174,7 +180,10 @@ Finally, a word of caution. This simulation tool is a highly simplified account 
 
 </div>
 
-<div id="option-div">
+
+<div class="row">
+
+<div id="option-div" class="col-md-6">
 
 <form class="cmxform" id="parameters-form" method="get" action="">
 
@@ -262,10 +271,6 @@ This is the number of iterations the simulation will run for. Each iteration cor
 
 <fieldset>
 
-<legend class="sub-legend">Fertility</legend>
-
-<fieldset>
-
 <legend class="sub-legend">Mating seasons before dying of old age</legend>
 
 <p>
@@ -292,7 +297,7 @@ This is the number of iterations the simulation will run for. Each iteration cor
     <label class="radio-field" for="discrete_weibull_B">&Beta;</label>
     <input class="radio-option" type="number" id="discrete_weibull_B"
 	   name="discrete_weibull_B" value="2.5" min="0" max="100" step="0.001"
-	   onchange="$('#avg-seasons').text(avg_weibull())" required />
+	   onchange="$('#avg-seasons').text(avg_weibull())" required /><br />
     <span class="radio-field">&nbsp;&nbsp;&nbsp;Average # seasons: </span>
     <span class="radio-field" id="avg-seasons"></span>
   </span>
@@ -360,8 +365,6 @@ The <em>Binomial Distribution</em> option is arguably more realistic. <em>n</em>
 <span class="good-range">Recommended range: n: 1 to 5 (integer), p 0 to 1 (real).</span><br />
 </p>
 
-</fieldset>
-
 <p>
 	<label class="field" for="num_kids">Mating strategy</label>
  	<select class="option" id="mating_strategy" name="mating_strategy">
@@ -374,7 +377,9 @@ The <em>Binomial Distribution</em> option is arguably more realistic. <em>n</em>
 If this is set to monogamous, the male winner of a fight only mates with one female in that mating seasons. If this is set to polygamous, the number of females the winning male mates with is equal to approximately the ratio of females to males.
 </p>
 
+
 </fieldset>
+
 
 <fieldset>
   <legend class="sub-legend">Simulation details</legend>
@@ -390,11 +395,8 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
     <span class="good-range">Recommended range: 1000-30000 (integer)</span>
   </p>
 
-</fieldset>
-
-<fieldset>
-
-<legend class="sub-legend">Random number generation</legend>
+<legend class="sub-sub-legend">
+Random number generation</legend>
 <p>
 <label class="radio-field" for="rng-javascript">Javascript default</label>
 <input type="radio" id="rng-javascript" name="rng"
@@ -433,7 +435,8 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 </div>
 
 <p>
-  <button class="submit-button" id="simbutton" type="submit" title="Run simulation">Simulate
+  <button class="submit-button btn btn-primary" 
+  			id="simbutton" type="submit" title="Run simulation">Simulate
   </button>
 </p>
 
@@ -441,12 +444,12 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 
 </div>
 
-<div id="chart-div">
+<div id="chart-div" class="col-md-6">
 
 <fieldset>
-<legend>Population</legend>
+<legend>Graph showing change in population</legend>
 
-<svg height="50" width="600">
+<svg height="50" width="500">
   <line x1="0" y1="20" x2="50" y2="20" style="stroke:rgb(255,0,0);stroke-width:2" />
   <text x="60" y="20" fill="red">Total population</text>
   <line x1="0" y1="40" x2="50" y2="40" style="stroke:yellow;stroke-width:2" />
@@ -462,16 +465,22 @@ If this is set to monogamous, the male winner of a fight only mates with one fem
 
 </div>
 
-<div id="output">
+</div>
+
+<div id="output" >
 
 </div>
 
 <div id="footer">
 
+
+
 <p>Copyright (C) <a href="http://nathangeffen.webfactional.com">Nathan Geffen</a> 2015 under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.
 <a href="https://github.com/nathangeffen/matestrat">Download this software</a>.
 There are probably bugs, bad ones. And there are no doubt errors in the text.
 Please tell me about bugs and errors by emailing nathangeffen at quackdown dot info or logging issues at the above code repository. </p>
+
+</div>
 
 </div>
 

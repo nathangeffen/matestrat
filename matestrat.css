@@ -1,10 +1,92 @@
 
+.ct-chart .ct-series.ct-series-b .ct-bar, .ct-chart .ct-series.ct-series-b .ct-line, .ct-chart .ct-series.ct-series-b .ct-point, .ct-chart .ct-series.ct-series-b .ct-slice.ct-donut {
+    stroke: yellow;
+    stroke-opacity:0.7;
+}
+
+label.field  {
+	 display: inline-block;
+    width: 200px;
+    font-weight: bold;
+}
+
+.btn {margin-top: 5px; }
+
+img.help {
+   width: 20px;
+   height: 20px;
+   vertical-align: middle;
+}
+
+img.help:hover {
+    cursor:help;
+}
+
+
+#chart-div {
+		margin-top: 5px;
+		border: 1px;
+		border-style: dashed;
+}
+
+#footer {
+    clear: both;
+    padding: 10px;
+    margin-top: 10px;
+    background: #DCDAE5;
+}
+
+span.hide, div.hide, p.hide, .hide {
+    display: none;
+}
+
+legend.sub-legend {
+	 font-size: 110%;
+    color: blue;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+legend.sub-sub-legend {
+	 font-size: 100%;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#parameters fieldset {
+	border-bottom: 1px;
+	border-style: dashed;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+span.good-range {
+    color: red;
+}
+
+span.radio-field, label.radio-field {
+   font-weight: bold;
+}
+
+label.error {
+    color: red;
+    margin: 5px;
+    font-size: 75%;
+}
+
+/*
 #wrap {
     margin: auto;
     width: auto;
-    max-width: 800px;
     font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#header {
+    margin: auto;
+    width: auto;
 }
 
 #option-div {
@@ -12,16 +94,11 @@
 }
 
 #chart-div {
-    max-width: 620px;
-}
 
-
-#footer {
-    clear: both;
-    padding: 3px;
-    margin-top: 10px;
-    background: none repeat scroll 0% 0% #DCDAE5;
 }
+*/
+
+/*
 
 span.hide, div.hide, p.hide, .hide {
     display: none;
@@ -51,9 +128,7 @@ span.radio-field, label.radio-field {
    font-weight: bold;
 }
 
-span.good-range {
-    color: red;
-}
+
 
 input.option, select.option {
     margin-left: 10px;
@@ -84,12 +159,7 @@ button.help {
     padding-bottom: 0;
 }
 
-label.error {
-    margin-left: 10px;
-    width: auto;
-    display: inline;
-    color: red;
-}
+
 
 fieldset p {
     clear: both;
@@ -100,9 +170,7 @@ button.submit-button {
     font-weight: bold;
 }
 
-img.help:hover {
-    cursor:help;
-}
+
 
 table, th, td {
     border: 1px solid black;
@@ -112,7 +180,4 @@ td {
     text-align: center;
 }
 
-.ct-chart .ct-series.ct-series-b .ct-bar, .ct-chart .ct-series.ct-series-b .ct-line, .ct-chart .ct-series.ct-series-b .ct-point, .ct-chart .ct-series.ct-series-b .ct-slice.ct-donut {
-    stroke: yellow;
-    stroke-opacity:0.7;
-}
+*/

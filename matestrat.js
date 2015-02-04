@@ -366,7 +366,7 @@ var report = function(simulation)
 
 var init_results = function()
 {
-    results = '<table class="results">';
+    results = '<table class="table results">';
     results += "<tr>";
     results += "<th>Season</th>";
     results += "<th>Alive (female)</th>";
