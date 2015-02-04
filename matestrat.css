@@ -4,6 +4,10 @@
     stroke-opacity:0.7;
 }
 
+.ui-widget-content a {
+	color: #337ab7;
+}
+
 label.field  {
 	 display: inline-block;
     width: 200px;
